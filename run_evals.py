@@ -5,9 +5,10 @@ By default evaluates all models in MODEL_PATHS with standard defaults.
 Use flags to restrict to a subset of models, constraints, or calibration methods.
 
 Usage:
-    python scripts/run_evals.py                                     # all models, all constraints
+    python scripts/run_evals.py                                            # all models, all constraints
     python scripts/run_evals.py --models Gemma-3-270M Llama-3.2-1B
     python scripts/run_evals.py --constraints mutual_exclusivity transitivity
+    python scripts/run_evals.py --nucleus-ps 0.90 0.95                    # override nucleus p values
 """
 
 import argparse
@@ -56,6 +57,11 @@ def parse_args():
         help="Calibration methods to compute (default: all). See ALL_METHODS in calibration.py.",
     )
     parser.add_argument(
+        "--nucleus-ps", nargs="+", type=float, default=None,
+        metavar="P",
+        help="Nucleus p values for cal_nucleusXXX / cal_nucleus_entropyXXX (default: 0.80 0.85 0.90 0.95).",
+    )
+    parser.add_argument(
         "--aggregate-score-type", default="wmc_score",
         metavar="SCORE_TYPE",
         help="Aggregate score to display in plot titles (default: wmc_score). Pass 'none' to disable.",
@@ -95,6 +101,7 @@ def main():
     print(f"Constraints: {args.constraints or 'all'}")
     print(f"Eval type: {args.eval_type}")
     print(f"Calibration methods: {args.cal_methods or 'all'}")
+    print(f"Nucleus ps: {args.nucleus_ps or [0.80, 0.85, 0.90, 0.95]}")
     print("=" * 60)
 
     for model_name in models:
@@ -107,6 +114,7 @@ def main():
                 model_name=model_name,
                 constraint_subset=args.constraints,
                 cal_methods=args.cal_methods,
+                nucleus_ps=args.nucleus_ps,
                 aggregate_score_type=aggregate_score_type,
                 batch_size=batch_size,
                 instruction_tuned=False,

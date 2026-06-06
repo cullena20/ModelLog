@@ -24,16 +24,17 @@ import torch
 
 # takes in model + datasets -> does everything
 def master_wrapper(
-        model_name = None, # model name - ADD TO MODEL_PATHS IF NOT HERE 
-        constraint_subset=None,      # subset of constraints to evaluate on 
+        model_name = None, # model name - ADD TO MODEL_PATHS IF NOT HERE
+        constraint_subset=None,      # subset of constraints to evaluate on
         calibration_methods_subset=None, # subset of calibration methods to grab plots on
         cal_methods=None,             # subset of calibration methods to compute (default: all); see ALL_METHODS in calibration.py
+        nucleus_ps=None,              # nucleus p values for cal_nucleusXXX / cal_nucleus_entropyXXX (default: [0.80, 0.85, 0.90, 0.95])
         aggregate_score_type="wmc_score", # for displaying in plots, wmc_score is our standard metric (None if don't include)
         batch_size = 128, # batch size for grabbing probs
         instruction_tuned=False,     # whether model being evaluated is instruction tuned
         eval_type="answer_token",       # evaluation type: "answer_token", "qa" (yes/no question pass only), or "both" (standard + yes/no merged)
         # only answer_token evaluation used in paper, qa left for future exploration
-        # qa evaluation converts factual statements into questions like "Is it true that A?" and uses probabilities of model responding yes/no 
+        # qa evaluation converts factual statements into questions like "Is it true that A?" and uses probabilities of model responding yes/no
     ):
 
     if model_name is None:
@@ -101,6 +102,7 @@ def master_wrapper(
                 evaluate=False,
                 use_chat_template=instruction_tuned,
                 cal_methods=cal_methods,
+                nucleus_ps=nucleus_ps,
             )
 
         # Exploratory inference pass: yes/no question probabilities + calibration 

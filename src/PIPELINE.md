@@ -180,7 +180,7 @@ The main pipeline function. Orchestrates steps 2–6.
 **Additional parameters:**
 - `include_prob_info`: keep raw `prob_info` (logits etc.) in the output dict; stripped by default
 - `k_tops`: list of k values for `cal_topkXXX` (default `[50]`)
-- `nucleus_ps`: list of p values for `cal_nucleusXXX` / `cal_nucleus_entropyXXX` (default `[0.95]`)
+- `nucleus_ps`: list of p values for `cal_nucleusXXX` / `cal_nucleus_entropyXXX` (default `[0.80, 0.85, 0.90, 0.95]`)
 - `cal_methods`: subset of calibration method keys to compute (default: all)
 - `use_chat_template`: apply the model's chat template before inference
 - `yes_no`: use yes/no generation-prompt inference and `calibrate_true_false_dataset` instead of the standard token-prob path
@@ -226,7 +226,7 @@ calibrate(p, C) = sigmoid(logit(p) + C)
 
 where `C` is a correction term that shifts the log-odds upward. Larger `C` = stronger upward push.
 
-### `calibrate_prompt(prob_info, vocab_size, k_tops=[50], nucleus_ps=[0.95], methods=None) → dict`
+### `calibrate_prompt(prob_info, vocab_size, k_tops=[50], nucleus_ps=[0.80, 0.85, 0.90, 0.95], methods=None) → dict`
 
 Computes all calibration variants for a single prompt's `prob_info`. `k_tops` and `nucleus_ps` are lists — each value produces a separately named key, so multiple parameter choices can coexist in the same result dict.
 
@@ -527,6 +527,7 @@ End-to-end pipeline for a single model. Calls everything above in sequence.
 - `constraint_subset`: list of constraint names to evaluate (default: all five)
 - `calibration_methods_subset`: list of calibration method keys to include in plots (default: all)
 - `cal_methods`: list of calibration method keys to compute (default: all); see `ALL_METHODS` in `calibration.py`
+- `nucleus_ps`: nucleus p values for `cal_nucleusXXX` / `cal_nucleus_entropyXXX` (default: `[0.80, 0.85, 0.90, 0.95]`)
 - `aggregate_score_type`: metric to display in plot titles; `"wmc_score"` is standard (soft-normalized mean)
 - `batch_size`: inference batch size; `128` is fast on a single A100; reduce if OOM
 - `instruction_tuned`: whether to apply the model's chat template during inference
@@ -547,7 +548,7 @@ from src.master_wrapper import master_wrapper
 master_wrapper(model_name="Gemma-3-270M", batch_size=128)
 ```
 
-**Main run script**: `scripts/run_evals.py` — evaluates all models in `MODEL_PATHS` by default, with CLI flags for model subset, constraint subset, calibration methods, batch size, and eval type.
+**Main run script**: `scripts/run_evals.py` — evaluates all models in `MODEL_PATHS` by default, with CLI flags for model subset, constraint subset, calibration methods, nucleus p values (`--nucleus-ps`), batch size, and eval type.
 
 
 ---

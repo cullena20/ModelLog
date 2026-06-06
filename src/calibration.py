@@ -54,13 +54,13 @@ def calibrate_prompt(prob_info, vocab_size, k_tops=None, nucleus_ps=None, method
         prob_info: dict from ModelWrapper.last_token_prob
         vocab_size: int
         k_tops: list of ints for top-k calibration (default [50]). Each k produces cal_topkXXX.
-        nucleus_ps: list of floats for nucleus calibration (default [0.95]). Each p produces cal_nucleusXXX and cal_nucleus_entropyXXX.
+        nucleus_ps: list of floats for nucleus calibration (default [0.80, 0.85, 0.90, 0.95]). Each p produces cal_nucleusXXX and cal_nucleus_entropyXXX.
         methods: subset of method names to include (default: all). Options: "raw_prob", "cal_vocab", "cal_topk", "cal_nucleus", "cal_entropy", "cal_nucleus_entropy".
     """
     if k_tops is None:
         k_tops = [50]
     if nucleus_ps is None:
-        nucleus_ps = [0.95]
+        nucleus_ps = [0.80, 0.85, 0.90, 0.95]
     if methods is None:
         methods = ALL_METHODS
 
