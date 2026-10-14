@@ -21,3 +21,20 @@ python scripts/run_evals.py --models Gemma-3-270M    # single model
 ```
 
 Results are saved to `eval_results/` (pickles + CSVs) and `plots/`.
+
+
+## Citation
+
+If you use this code, our datasets, or build on our findings, please cite our preprint
+
+```bibtex
+@misc{richardson2026tokenprobabilitiessemanticconstraints,
+      title={From Token Probabilities to Semantic Constraints: Towards Declarative Probabilistic Evaluation of Language Models}, 
+      author={Kyle Richardson and Cullen Anderson and Pranav Balakrishnan and Takuto Ban and Daksha Ladia and Ankita Gupta and Marisa Hudspeth},
+      year={2026},
+      eprint={2609.13520},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2609.13520}, 
+}
+```
