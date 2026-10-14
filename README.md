@@ -1,6 +1,6 @@
 # From Token Probabilities to Semantic Constraints
 
-Codebase for *From Token Probabilities to Semantic Constraints: Towards Declarative Probabilistic Evaluation of Language Models*.
+Codebase for [*From Token Probabilities to Semantic Constraints: Towards Declarative Probabilistic Evaluation of Language Models*](https://arxiv.org/abs/2609.13520), accepted to EMNLP 2026.
 
 ## Overview
 
