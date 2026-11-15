@@ -25,16 +25,18 @@ Results are saved to `eval_results/` (pickles + CSVs) and `plots/`.
 
 ## Citation
 
-If you use this code, our datasets, or build on our findings, please cite our preprint
+If you use this code, our datasets, or build on our findings, please cite our paper:
 
 ```bibtex
-@misc{richardson2026tokenprobabilitiessemanticconstraints,
-      title={From Token Probabilities to Semantic Constraints: Towards Declarative Probabilistic Evaluation of Language Models}, 
-      author={Kyle Richardson and Cullen Anderson and Pranav Balakrishnan and Takuto Ban and Daksha Ladia and Ankita Gupta and Marisa Hudspeth},
-      year={2026},
-      eprint={2609.13520},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2609.13520}, 
+@inproceedings{richardson-etal-2026-token,
+    title = "From Token Probabilities to Semantic Constraints: Towards Declarative Probabilistic Evaluation of Language Models",
+    author = "Richardson, Kyle and Anderson, Cullen and Balakrishnan, Pranav and Ban, Takuto and Ladia, Daksha and Gupta, Ankita and Hudspeth, Marisa",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.1752/",
+    doi = "10.18653/2026.emnlp-main.1752",
 }
 ```
